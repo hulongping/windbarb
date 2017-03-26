@@ -19,4 +19,5 @@ var marker = L.marker(31,121], {icon: icon}).addTo(map).on('click', markerOnClic
             forceDir: false
         }
         
-    
+   ## 预览效果图
+     ![样例](https://raw.githubusercontent.com/hulongping/windbarb/master/images/preview.png)
