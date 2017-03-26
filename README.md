@@ -2,6 +2,9 @@
 
 使用最新的leaftlet@1.0.3版本API，绘制气象风矢图：
 
+## Demo
+[传送门](https://hulongping.github.io/windbarb/wind.html)
+
 ## 使用方法
 var icon = L.WindBarb.icon({deg: 180, speed:16,pointRadius:0,strokeColor:'#ce3431'});
 var marker = L.marker(31,121], {icon: icon}).addTo(map).on('click', markerOnClick);
@@ -21,3 +24,5 @@ var marker = L.marker(31,121], {icon: icon}).addTo(map).on('click', markerOnClic
         
    ## 预览效果图
    ![image](https://raw.githubusercontent.com/hulongping/windbarb/master/images/preview.png)
+   
+   
