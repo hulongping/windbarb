@@ -10,6 +10,7 @@ var icon = L.WindBarb.icon({deg: 180, speed:16,pointRadius:0,strokeColor:'#ce343
 var marker = L.marker(31,121], {icon: icon}).addTo(map).on('click', markerOnClick);
 
 ## 可以自定义的参数
+```javascript
  options: {
             pointRadius: 4, 
             pointColor:'#2B85C7',
@@ -21,6 +22,7 @@ var marker = L.marker(31,121], {icon: icon}).addTo(map).on('click', markerOnClic
             barbHeight: 10,
             forceDir: false
         }
+  ```
         
    ## 预览效果图
    ![image](https://raw.githubusercontent.com/hulongping/windbarb/master/images/preview.png)
