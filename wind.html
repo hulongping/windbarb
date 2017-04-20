@@ -44,6 +44,10 @@
 
     }).addTo(map);
 
+    var windLyr=L.tileLayer('http://101.231.140.106:8081/ReadearthRest/DongHai/2017/20170420/201704200800_000_Wave/MapServer/tile/{z}/{y}/{x}').addTo(map);
+
+    var pmLyr=L.tileLayer('http://58.215.175.28/ReadearthRest/Test/2017/20170101/20170101/MapServer/tile/{z}/{y}/{x}').addTo(map);
+
 
     var meteoPoints=[
         [31,121,14,0],
