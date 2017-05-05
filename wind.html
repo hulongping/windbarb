@@ -29,6 +29,7 @@
 
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 <script src="leaflet-windbarb.js"></script>
+<script src="leaflet-isosceles.js"></script>
 
 <script>
     var map = L.map('map', {
@@ -44,10 +45,11 @@
 
     }).addTo(map);
 
-    var windLyr=L.tileLayer('http://101.231.140.106:8081/ReadearthRest/DongHai/2017/20170420/201704200800_000_Wave/MapServer/tile/{z}/{y}/{x}').addTo(map);
+    //var windLyr=L.tileLayer('http://101.231.140.106:8081/ReadearthRest/DongHai/2017/20170420/201704200800_000_Wave/MapServer/tile/{z}/{y}/{x}').addTo(map);
 
-    var pmLyr=L.tileLayer('http://58.215.175.28/ReadearthRest/Test/2017/20170101/20170101/MapServer/tile/{z}/{y}/{x}').addTo(map);
+    //var pmLyr=L.tileLayer('http://58.215.175.28/ReadearthRest/Test/2017/20170101/20170101/MapServer/tile/{z}/{y}/{x}').addTo(map);
 
+    //var o3lyr=L.tileLayer('http://211.144.122.59:5005/ReadearthRest/SourceList/2014/20140101/201401010000_03PM_000_000/MapServer/tile/{z}/{y}/{x}').addTo(map);
 
     var meteoPoints=[
         [31,121,14,0],
@@ -73,6 +75,17 @@
         var marker = L.marker([p[0],p[1]], {icon: icon}).addTo(map).on('click', markerOnClick);
         marker.dataAttributes=p;
     });
+
+    var shipIcon=L.Isocesles.icon({
+        strokeColor:'#000',
+        strokeWidth: 1,
+        iconSize: 12,
+        fillColor:'#2B85C7',
+        deg:45
+    });
+
+    var shipMarker=L.marker([20,140],{icon:shipIcon}).addTo(map);
+
 
     function markerOnClick(e){
         var item = this.dataAttributes;
