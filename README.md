@@ -28,4 +28,8 @@ var marker = L.marker(31,121], {icon: icon}).addTo(map).on('click', markerOnClic
    ## 预览效果图
    ![image](https://raw.githubusercontent.com/hulongping/windbarb/master/images/preview.png)
    
+   ## 大圆航线效果图
+   ![image](https://raw.githubusercontent.com/hulongping/windbarb/master/images/path.jpg)
+
+   
    
