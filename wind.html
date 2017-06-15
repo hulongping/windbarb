@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <div id="map"></div>
+  <div id="map"></div>
 </body>
 
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
@@ -37,12 +37,8 @@
         zoom: 4
     });
 
-    L.tileLayer('https://geohey.com/s/mapping/{mapId}/all?z={z}&x={x}&y={y}&retina=@2x&ak=YmUwODYyOThhYTQ1NGFmYmE4ZjI0MDhkMDFjNTUwYjQ', {
-
-        attribution: 'GeoHey &copy;',
-        maxZoom: 18,
-        mapId: 'light'
-
+    L.tileLayer('http://{s}.tiles.mapbox.com/v3/springmeyer.map-7jkxlsx1/{z}/{x}/{y}.png', {
+        attribution: ''
     }).addTo(map);
 
     //var windLyr=L.tileLayer('http://101.231.140.106:8081/ReadearthRest/DongHai/2017/20170420/201704200800_000_Wave/MapServer/tile/{z}/{y}/{x}').addTo(map);

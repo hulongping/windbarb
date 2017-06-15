@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Leaflet Circle</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    html,
+    body,
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+</head>
+
+<body>
+<div id="map"></div>
+</body>
+
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+<script src="./GreatCircle/GreatCircleUtil.js"></script>
+<script src="./GreatCircle/arc.js"></script>
+
+<script>
+  var map = L.map('map', {
+    center: [31, 121],
+    zoom: 4
+  });
+
+  L.tileLayer('http://{s}.tiles.mapbox.com/v3/springmeyer.map-7jkxlsx1/{z}/{x}/{y}.png', {
+    attribution: ''
+  }).addTo(map);
+
+
+  //求两点之间大圆距离（也就是最短距离）
+  GreatCircleUtil.distance(30.7,122.72,28.49,127.64);
+  //求两点之间的方位
+  GreatCircleUtil.bearing(30.7,122.72,28.49,127.64);
+
+
+  // number of intermediate arc points
+  var idx = 1;
+  var features = [];
+  var npoints = 100;
+  var offset = 20;
+  var coords = [];
+  var points = [];
+  var snap_tolerance = 500000;
+
+  map.on('click',onMapClick);
+
+  function onMapClick(e) {
+    var coord = new L.LatLng(e.latlng.lat, e.latlng.lng);
+    //console.log('clicked at: ' + e.latlng.lng + ' ' + e.latlng.lat)
+    coords.push(coord.wrap());
+    draw(coords);
+  }
+
+  function draw(coors) {
+    var len = coords.length;
+    if (len == 1) {
+      var hit = false;
+      start = coords[0];
+      for (var i = 0; i < points.length; ++i) {
+        var distance = points[i].distanceTo(start);
+        if (distance < snap_tolerance) {
+          //console.log('hit previous point, re-using location')
+          start = points[i];
+          hit = true;
+        } else {
+          //console.log(distance);
+        }
+      }
+      if (!hit) {
+        points.push(start);
+      }
+      var circleOptions = {color: '#f03', opacity: 0.5, clickable: false};
+      var circle = new L.CircleMarker(start, circleOptions);
+      map.addLayer(circle);
+    } else if (len == 2) {
+      var hit = false;
+      end = coords[1];
+      for (var i=0;i<points.length;++i) {
+        var distance = points[i].distanceTo(end);
+        if (distance<snap_tolerance && (points[i].lng !== start.lng)) {
+          //console.log('hit previous point, re-using location')
+          end = points[i];
+          hit = true;
+        } else {
+          //console.log(distance);
+        }
+      }
+      if (!hit) {
+        points.push(end);
+      }
+
+      var circleOptions = {color: '#f03', opacity: 0.5, clickable:false};
+      var circle = new L.CircleMarker(end, circleOptions);
+      map.addLayer(circle);
+
+      try {
+        var from = {x: start.lng, y: start.lat};
+        var to = {x: end.lng, y:end.lat};
+        var properties = {
+          arc:idx++,
+          start:''+from.lon+','+from.lat,
+          end:''+to.lon+','+to.lat
+        };
+        var greatCircle = new arc.GreatCircle(from,to,properties);
+      } catch (e) {
+        // catch possible antipodes error
+        alert(e.message);
+        coords.length = 0;
+        return;
+      }
+
+      var gc = greatCircle.Arc(npoints,{offset:offset});
+      var line = new L.geoJson().addTo(map);
+
+      var geojson_feature = gc.json();
+      features.push(geojson_feature)
+      line.addData(geojson_feature);
+
+
+    }
+  }
+
+
+
+
+
+</script>
+
+</html>
