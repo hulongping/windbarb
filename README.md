@@ -3,7 +3,8 @@
 使用最新的leaftlet@1.0.3版本API，绘制气象风矢图：
 
 ## Demo
-[传送门](https://hulongping.github.io/windbarb/wind.html)
+[风干](https://hulongping.github.io/windbarb/wind.html)
+[大圆航线] (https://hulongping.github.io/windbarb/index.html)
 
 ## 使用方法
 var icon = L.WindBarb.icon({deg: 180, speed:16,pointRadius:0,strokeColor:'#ce3431'});
